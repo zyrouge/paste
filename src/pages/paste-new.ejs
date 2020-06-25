@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin by ZYROUGE</title>
+    <%- include("components/head.ejs") %>
+</head>
+
+<body>
+    <!-- Nav -->
+    <%- include("components/nav.ejs") %>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">New Paste</h1>
+            <h4 class="subtitle is-4"><strong>Paste.</strong> Made by <strong>ZYROUGE</strong></h4>
+            <hr>
+            <form action="/paste/new" method="post" name="paste" onsubmit="return validateForm()">
+                <div class="field">
+                    <label class="label">Title</label>
+                    <input class="input" name="title" type="text" placeholder="Title of the paste...">
+                    <p class="help is-info" id="codehelp">If empty, Paste Code will be the title</p>
+                </div>
+                <div class="field">
+                    <label class="label">Language</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="language">
+                                <% languages.forEach(lang => { %>
+                                    <option value="<%= lang.code %>"><%= lang.language %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Code</label>
+                    <div class="content">
+                        <textarea class="textarea" name="code" id="codebox" placeholder="Paste your code here..." rows="10"></textarea>
+                    </div>
+                    <p class="help is-danger invisible" id="codehelp">This email is invalid</p>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-success">Submit</button>
+                    </div>
+                    <div class="control">
+                        <a class="button is-danger" href="/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+<script>
+    function validateForm() {
+        var code = document.forms["paste"]["code"].value;
+        if (!code) {
+            var codebox = document.getElementById("codebox");
+            var codehelp = document.getElementById("codehelp");
+            if (codebox) codebox.classList.add("is-danger");
+            if(codehelp) codehelp.classList.remove("invisible");
+            return false;
+        }
+    }
+</script>
+
+<style>
+.invisible {
+    display: none;
+}
+</style>
+
+</html>

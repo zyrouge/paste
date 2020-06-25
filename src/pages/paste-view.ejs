@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin by ZYROUGE</title>
+    <%- include("components/head.ejs") %>
+</head>
+
+<body>
+    <!-- Nav -->
+    <%- include("components/nav.ejs") %>
+
+    <section class="section">
+        <div class="container">
+            <h3 class="subtitle is-3"><%= paste.title || params.code || "Unknown" %></h3>
+            <p>Language: <%- paste.fullLang ? `<strong>${paste.fullLang.language}</strong> a.k.a. <strong>${paste.language}</strong>` : "Unknown" %></p>
+            <p>Paste Code: <strong><%= params.code || "Unknown" %></strong></p>
+            <p>No. of Lines: <strong><%= paste.code.split("\n").length || "Unknown" %></strong></p>
+            <p>No. of Characters: <strong><%= paste.code.length || "Unknown" %></strong></p>
+            <hr>
+            <h5 class="subtitle is-5">Code</h5>
+            <pre><code id="code" class="language-<%= paste.language %>"><%= paste.code %></code></pre>
+            <hr>
+            <h5 class="subtitle is-5" style="vertical-align: middle;">Raw Code &nbsp; <button id="raw-code-copy-btn" class="button is-primary is-small" onclick="copyCode('raw-code-copy-btn', 'raw-code')">Copy Code</button></h5>
+            <div class="field">
+                <div class="control">
+                    <textarea class="textarea" id="raw-code" rows="10" readonly><%= paste.code %></textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    function copyCode(buttonID, textDiv) {
+        var copyBtn = document.getElementById(buttonID);
+        var copyText = document.getElementById(textDiv);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+
+        var textBefore = copyBtn.textContent;
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => {
+            copyBtn.textContent = textBefore;
+        }, 4000);
+    }
+</script>
+
+</html>

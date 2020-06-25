@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin by ZYROUGE</title>
+    <%- include("components/head.ejs") %>
+</head>
+
+<body>
+    <!-- Nav -->
+    <%- include("components/nav.ejs") %>
+
+    <section class="section">
+        <div class="container">
+            <article class="message is-danger" id="message-delete-box">
+                <div class="message-header">
+                    <p>Error</p>
+                    <button class="delete" onclick="hideMessage()" aria-label="delete"></button>
+                </div>
+                <div class="message-body"><%= error %></div>
+            </article>
+        </div>
+    </section>
+</body>
+
+<script>
+    function hideMessage() {
+        try { document.getElementById("message-delete-box").style.display = "none"; }
+        catch(e) { }
+    }
+</script>
+
+</html>
