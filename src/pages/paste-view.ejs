@@ -10,16 +10,46 @@
 
 <body>
     <!-- Nav -->
-    <%- include("components/nav.ejs") %>
+    <%- include("components/nav.ejs", { user }) %>
 
     <section class="section">
         <div class="container">
-            <h3 class="subtitle is-3"><%= paste.title || params.code || "Unknown" %></h3>
+            <h3 class="title is-3">
+                <%= paste.title || params.code || "Unknown" %>
+            </h3>
+            <% if (info) { %>
+                <p>
+                    Author: <a href="<%= info.profileUrl || "#" %>"><strong style="color: #3273dc;"><%= info.displayName || info.username || "Unknown" %></strong></a>
+                    <% if (user && info.id === user.id) { %>
+                        (You)
+                    <% } %>
+                </p>
+            <% } %>
             <p>Language: <%- paste.fullLang ? `<strong>${paste.fullLang.language}</strong> a.k.a. <strong>${paste.language}</strong>` : "Unknown" %></p>
             <p>Paste Code: <strong><%= params.code || "Unknown" %></strong></p>
             <p>No. of Lines: <strong><%= paste.code.split("\n").length || "Unknown" %></strong></p>
             <p>No. of Characters: <strong><%= paste.code.length || "Unknown" %></strong></p>
+            <p>Visibility: <strong><%= paste.visibility ? paste.visibility.charAt(0).toUpperCase() + paste.visibility.substr(1).toLowerCase() : "Unknown" %></strong></p>
+            <p>Created At: <strong><%= paste.createdAt ? new Date(paste.createdAt).toLocaleString() || "Unknown" : "Unknown" %> </strong></p>
+            <% if (paste.modifiedAt) { %>
+                <p>Last Edited: <strong><%= paste.createdAt ? new Date(paste.modifiedAt).toLocaleString() || "Unknown" : "Unknown" %> </strong></p>
+            <% } %>
             <hr>
+            <% if (user && info.id === user.id) { %>
+                <h5 class="subtitle is-5">Actions</h5>
+                <div class="buttons">
+                    <a href="/p/<%= params.code %>/" class="button is-success">
+                        <p><i class="fas fa-link"></i> Link</p>
+                    </a>
+                    <a href="/paste/<%= params.code %>/edit" class="button is-warning">
+                        <p><i class="fas fa-pencil-alt"></i> Edit</p>
+                    </a>
+                    <a href="/paste/<%= params.code %>/delete" class="button is-danger">
+                        <p><i class="fas fa-trash-alt"></i> Delete</p>
+                    </a>
+                </div>
+                <hr>
+            <% } %>
             <h5 class="subtitle is-5">Code</h5>
             <pre><code id="code" class="language-<%= paste.language %>"><%= paste.code %></code></pre>
             <hr>
@@ -31,6 +61,9 @@
             </div>
         </div>
     </section>
+    
+    <!-- Footer -->
+    <%- include("components/footer.ejs") %>
 </body>
 
 <script>

@@ -14,33 +14,17 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="title is-1">New Paste</h1>
-            <h4 class="subtitle is-4"><strong>Paste.</strong> Made by <strong>ZYROUGE</strong></h4>
+            <h1 class="title is-1">Editing <%= params.code %></h1>
+            <h4 class="subtitle is-4">Title: <strong><%= paste.title %></strong></h4>
             <hr>
-            <% if (!user) { %>
-                <article class="message is-warning">
-                    <div class="message-header">
-                        <p>Warning</p>
-                    </div>
-                    <div class="message-body">
-                        You cannot <b>edit</b> or <b>delete</b> pastes unless you are logged in. Click <strong><a href="/login">here</a></strong> to login.
-                    </div>
-                </article>
-                <hr>
-            <% } %>
-            <form action="/pastes/new" method="post" name="paste" onsubmit="return validateForm()">
-                <div class="field">
-                    <label class="label">Title</label>
-                    <input class="input" name="title" type="text" placeholder="Title of the paste...">
-                    <p class="help is-info" id="codehelp">If empty, Paste Code will be the title</p>
-                </div>
+            <form action="/paste/<%= params.code %>/edit" method="post" name="paste" onsubmit="return validateForm()">
                 <div class="field">
                     <label class="label">Visibility</label>
                     <div class="control">
                         <div class="select">
                             <select name="visibility">
                                 <% visibility.forEach(visibile => { %>
-                                    <option value="<%= visibile %>" <%- visibile === "public" ? ('selected') : "" %>><%= visibile.charAt(0).toUpperCase() + visibile.substr(1).toLowerCase() %></option>
+                                    <option value="<%= visibile %>" <%- visibile === paste.visibility ? ('selected') : "" %>><%= visibile.charAt(0).toUpperCase() + visibile.substr(1).toLowerCase() %></option>
                                 <% }); %>
                             </select>
                         </div>
@@ -52,7 +36,7 @@
                         <div class="select">
                             <select name="language">
                                 <% languages.forEach(lang => { %>
-                                    <option value="<%= lang.code %>" <%- lang.code === "plaintext" ? ('selected') : "" %>><%= lang.language %></option>
+                                    <option value="<%= lang.code %>" <%- lang.language === paste.fullLang.language ? ('selected') : "" %>><%= lang.language %></option>
                                 <% }); %>
                             </select>
                         </div>
@@ -61,14 +45,14 @@
                 <div class="field">
                     <label class="label">Code</label>
                     <div class="content">
-                        <textarea class="textarea" name="code" id="codebox" placeholder="Paste your code here..." rows="10"></textarea>
+                        <textarea class="textarea" name="code" id="codebox" placeholder="Paste your code here..." rows="10"><%= paste.code %></textarea>
                     </div>
                     <p class="help is-danger invisible" id="codehelp">Code must not be empty</p>
                 </div>
                 <div class="field is-grouped">
                     <div class="control">
                         <button type="submit" class="button is-success">
-                            <p><i class="fas fa-check"></i> Create</p>
+                            <p><i class="fas fa-check"></i> Edit</p>
                         </button>
                     </div>
                     <div class="control">
@@ -92,7 +76,7 @@
             var codebox = document.getElementById("codebox");
             var codehelp = document.getElementById("codehelp");
             if (codebox) codebox.classList.add("is-danger");
-            if (codehelp) codehelp.classList.remove("invisible");
+            if(codehelp) codehelp.classList.remove("invisible");
             return false;
         }
     }

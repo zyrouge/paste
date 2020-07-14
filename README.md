@@ -1,6 +1,5 @@
 # Paste
 
-
 Source Code of [Paste](https://paste.zyrouge.gq)
 
 ##### Hosting your own instance

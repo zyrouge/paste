@@ -14,21 +14,36 @@
     <div id="navbar-box" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/">Home</a>
-            <a class="navbar-item" href="/redirect/guides">Guides</a>
-            <a class="navbar-item" href="/redirect/blog">Blog</a>
+            <a class="navbar-item" href="https://zyrouge.gq/">
+                <p><i class="fas fa-heart" style="color: #f14668;"></i> Creator</p>
+            </a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-link" href="/paste/new">
+                    <a class="button is-link" href="/pastes/new">
                         <strong><i class="fas fa-plus"></i> New Paste</strong>
                     </a>
+                    <% if (!user) { %>
+                        <a class="button is-warning" href="/login">
+                            <strong><i class="fas fa-sign-in-alt"></i> Login</strong>
+                        </a>
+                    <% } else { %>
+                        <a class="button is-success" href="/me">
+                            <strong><i class="fas fa-user"></i> Profile</strong>
+                        </a>
+                    <% } %>
                     <a class="button is-light" href="https://github.com/zyrouge/paste">
                         <strong><i class="fab fa-github"></i> GitHub</strong>
                     </a>
-                    <a class="button is-danger" href="/redirect/patreon">
+                    <a class="button is-danger" href="https://zyrouge.gq/patreon">
                         <strong><i class="fab fa-patreon"></i> Patreon</strong>
                     </a>
+                    <% if (user) { %>
+                        <a class="button is-warning" href="/logout">
+                            <strong><i class="fas fa-sign-out-alt"></i> Logout</strong>
+                        </a>
+                    <% } %>
                 </div>
             </div>
         </div>

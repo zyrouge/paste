@@ -10,7 +10,7 @@
 
 <body>
     <!-- Nav -->
-    <%- include("components/nav.ejs") %>
+    <%- include("components/nav.ejs", { user }) %>
 
     <section class="section">
         <div class="container">
@@ -23,6 +23,9 @@
             </article>
         </div>
     </section>
+    
+    <!-- Footer -->
+    <%- include("components/footer.ejs") %>
 </body>
 
 <script>

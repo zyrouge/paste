@@ -12,13 +12,19 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="title is-1">Paste</h1>
-            <h4 class="subtitle is-4">Made by <strong>ZYROUGE</strong></h4>
+            <center>
+                <figure class="image">
+                    <img src="<%= user._json.avatar_url %> " alt="<% user.username %>" class="is-rounded" id="avatar" style="max-width: 20rem;" />
+                </figure>
+                <br>
+                <h1 class="title is-1"><%= user.displayName %></h1>
+                <h4 class="subtitle is-4">@<%= user.username %></h4>
+            </center>
             <hr>
-            <h4 class="subtitle is-4">Recent Pastes</h4>
-            <% if (pastes && pastes.length) { %>
+            <p class="title is-3">Your Pastes</p>
+            <% if (codes && codes.length) { %>
                 <div class="row">
-                    <% pastes.forEach(cobj => { %>
+                    <% codes.forEach(cobj => { %>
                         <div class="columns">
                             <% cobj.forEach(code => { %>
                                 <div class="column">
@@ -29,15 +35,15 @@
                                             <% } %>
                                             <%= code.title %>
                                         </p>
-                                        <p class="subtitle is-6">Code: <strong><%= code.id %></strong></p>
+                                        <p class="subtitle is-6">Code: <strong><%= code.code %></strong></p>
                                         <div class="buttons">
-                                            <a href="/p/<%= code.id %>/" class="button is-success">
+                                            <a href="/p/<%= code.code %>/" class="button is-success">
                                                 <p><i class="fas fa-eye"></i> View</p>
                                             </a>
-                                            <a href="/paste/<%= code.id %>/edit" class="button is-warning">
+                                            <a href="/paste/<%= code.code %>/edit" class="button is-warning">
                                                 <p><i class="fas fa-pencil-alt"></i> Edit</p>
                                             </a>
-                                            <a href="/paste/<%= code.id %>/delete" class="button is-danger">
+                                            <a href="/paste/<%= code.code %>/delete" class="button is-danger">
                                                 <p><i class="fas fa-trash-alt"></i> Delete</p>
                                             </a>
                                         </div>
@@ -49,7 +55,7 @@
                 </div>
             <% } else { %>
                 <p>
-                    No pastes were found yet. Click <a href="/pastes/new">here</a> to create one!
+                    You don't have any pastes yet. Click <a href="/pastes/new">here</a> to create one!
                 </p>     
             <% } %>
         </div>
@@ -58,4 +64,8 @@
     <!-- Footer -->
     <%- include("components/footer.ejs") %>
 </body>
+
+<style>
+
+</style>
 </html>
