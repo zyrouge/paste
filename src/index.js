@@ -105,7 +105,7 @@ server.post("/pastes/new", (req, res) => {
 
         bin.set(pasteCode, {
             ...req.body,
-            user: req.user.id || null,
+            user: req.user ? req.user.id : null,
             id: pasteCode,
             createdAt: Date.now(),
             modifiedAt: null
