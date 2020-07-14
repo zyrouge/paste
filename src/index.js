@@ -215,6 +215,7 @@ server.get("/me", ensureAuthenticated, (req, res) => {
 
 server.listen(config.port, () => {
     bin.fetchEverything();
+    logger.info(`Environment: ${_.capitalize(process.env.NODE_ENV || "unknown")}`);
     logger.info(`Listening on PORT ${config.port}`);
 });
 
